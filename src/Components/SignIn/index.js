@@ -6,7 +6,6 @@ import {
   TextField,
   Link,
   Grid,
-  Box,
   Typography,
   Container,
   InputAdornment,
@@ -194,34 +193,18 @@ const SignIn = (props) => {
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Quên mật khẩu?
+                {t('signin:lbl_forgot_password')}
               </Link>
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {t('signin:lbl_sign_up')}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container >
-  )
-}
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
   )
 }
 
@@ -239,6 +222,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
