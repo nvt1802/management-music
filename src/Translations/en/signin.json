@@ -1,4 +1,6 @@
 {
   "title": "Sign In",
-  "btn_sign_in": "Sign In"  
+  "btn_sign_in": "Sign In",
+  "lbl_forgot_password": "Forgot password ?",
+  "lbl_sign_up": "Don't have an account? Sign Up"
 }
