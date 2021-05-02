@@ -6,6 +6,8 @@ import SignIn from 'Components/SignIn'
 import Develops from 'Components/Develops'
 import Language from 'Components/Language'
 
+document.title = 'Home'
+
 function App(props) {
   const {
     user
