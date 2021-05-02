@@ -1,6 +1,7 @@
 import firebase from "firebase"
 import 'firebase/database'
 import 'firebase/storage'
+
 const config = {
   apiKey: "AIzaSyB6TM3CTsGjow8Y_hCMjzrVAuSv29F9vNw",
   authDomain: "management-music.firebaseapp.com",
