@@ -8,27 +8,21 @@ body {
 
 @keyframes bgimage {
   0% {
-    background-image: url("../images/1.jpg");
-  }
-  15% {
-    background-image: url("../images/2.jpg");
-  }
-  30% {
-    background-image: url("../images/3.jpg");
-  }
-  45% {
-    background-image: url("../images/4.jpg");
-  }
-  60% {
-    background-image: url("../images/5.png");
-  }
-  75% {
     background-image: url("../images/6.jpg");
   }
-  90% {
-    background-image: url("../images/7.jpg");
+  20% {
+    background-image: url("../images/1.jpg");
+  }
+  40% {
+    background-image: url("../images/2.jpg");
+  }
+  60% {
+    background-image: url("../images/3.jpg");
+  }
+  80% {
+    background-image: url("../images/4.jpg");
   }
   100% {
-    background-image: url("../images/1.jpg");
+    background-image: url("../images/5.jpg");
   }
 }
