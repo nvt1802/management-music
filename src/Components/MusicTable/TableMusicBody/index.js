@@ -1,0 +1,41 @@
+import { Checkbox, TableBody, TableCell, TableRow } from '@material-ui/core'
+import React from 'react'
+
+const TableMusicBody = ({
+  dataTable,
+  isSelected,
+  handleClick
+}) => {
+
+  return (
+    <TableBody>
+      {Object.keys(dataTable).map((row, index) => {
+        const isItemSelected = isSelected(row);
+        const labelId = `enhanced-table-checkbox-${index}`;
+        return (
+          <TableRow
+            hover
+            onClick={(event) => handleClick(event, row)}
+            role="checkbox"
+            aria-checked={isItemSelected}
+            tabIndex={-1}
+            key={index}
+            selected={isItemSelected}
+          >
+            <TableCell padding="checkbox">
+              <Checkbox
+                checked={isItemSelected}
+                inputProps={{ 'aria-labelledby': labelId }}
+              />
+            </TableCell>
+            <TableCell align="left">{row}</TableCell>
+            <TableCell align="left">{dataTable[row]?.name}</TableCell>
+            <TableCell align="center">{dataTable[row]?.age}</TableCell>
+          </TableRow>
+        )
+      })}
+    </TableBody>
+  )
+}
+
+export default TableMusicBody

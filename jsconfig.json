@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "baseUrl": "./src",
+    "paths": {
+      "Component": ["Components/*"],
+      "Database": ["RealtimeDatabase/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
