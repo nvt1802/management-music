@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Avatar,
   Button,
@@ -10,7 +10,8 @@ import {
   Container,
   InputAdornment,
   IconButton,
-  Divider
+  Divider,
+  FormHelperText
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
@@ -24,6 +25,7 @@ import { useTranslation } from 'react-i18next'
 
 const SignIn = (props) => {
   const {
+    history,
     user,
     signInWithGoogle,
   } = props
@@ -37,11 +39,20 @@ const SignIn = (props) => {
     email: yup.string()
       .required(t('common:validate.message_require', { field: 'Email' }))
       .email(t('common:validate.email_format')),
-    password: yup.string().required(t('common:validate.message_require', { field: 'Password' })),
+    password: yup.string()
+      .required(t('common:validate.message_require', { field: 'Password' }))
+      .min(8, t('common:validate.password_length'))
   });
-  const { handleSubmit, formState: { errors }, control } = useForm({
+
+  const { handleSubmit, formState: { errors }, control, setError } = useForm({
     resolver: yupResolver(schema)
   });
+
+  useEffect(() => {
+    if (user) {
+      history?.push('/')
+    }
+  }, [history, user])
 
   const handleLoginWithGoogle = (event) => {
     event.preventDefault()
@@ -63,10 +74,12 @@ const SignIn = (props) => {
 
   const onSubmit = data => {
     firebase.auth().signInWithEmailAndPassword(data?.email, data?.password)
-      .then((res) => console.log(res))
+      .then((res) => history?.push('/'))
       .catch(error => {
-        console.log(error?.message)
-        console.log({ user })
+        setError('errorAfterSubmit', {
+          type: "manual",
+          message: t(`signin:validate.${error?.code}`)
+        });
       })
   }
 
@@ -155,6 +168,7 @@ const SignIn = (props) => {
           >
             {t('signin:btn_sign_in')}
           </Button>
+          <FormHelperText error style={{ textAlign: 'center' }}>{errors?.errorAfterSubmit?.message}</FormHelperText>
           <Grid container>
             <Grid item xs={5} style={{ margin: 'auto' }} >
               <Divider />
