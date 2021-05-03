@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Avatar,
   Button,
@@ -10,7 +10,8 @@ import {
   InputAdornment,
   IconButton,
   Divider,
-  FormHelperText
+  FormHelperText,
+  Snackbar
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import AvatarImage from 'Assets/Avatar/avatar.png'
@@ -22,19 +23,21 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { Alert } from '@material-ui/lab'
 import ForgotPassowd from 'Components/ForgotPassowd'
 
-const SignIn = (props) => {
+const SignUp = (props) => {
   const {
-    history,
-    user,
+    // user,
+    signOut,
     signInWithGoogle,
   } = props
   const classes = useStyles()
-  const { t } = useTranslation(['signin', 'common'])
+  const { t } = useTranslation(['signup', 'common'])
   const [showPassword, setShowPassword] = useState(false)
   const [focusEmail, setFocusEmail] = useState(false)
   const [focusPassword, setFocusPassword] = useState(false)
+  const [openAlert, setOpenAlert] = useState(false)
   const [showForgotPassword, setShowForgotPassword] = useState(false)
 
   const schema = yup.object().shape({
@@ -50,12 +53,6 @@ const SignIn = (props) => {
     resolver: yupResolver(schema)
   });
 
-  useEffect(() => {
-    if (user) {
-      history?.push('/')
-    }
-  }, [history, user])
-
   const handleLoginWithGoogle = (event) => {
     event.preventDefault()
     signInWithGoogle()
@@ -67,15 +64,15 @@ const SignIn = (props) => {
   }
 
   const onSubmit = data => {
-    firebase.auth().signInWithEmailAndPassword(data?.email, data?.password)
-      .then((res) => history?.push('/'))
-      .catch(error => {
-        console.log(error?.message)
-        setError('errorAfterSubmit', {
-          type: "manual",
-          message: t(`signin:validate.${error?.code}`)
-        });
-      })
+    firebase.auth().createUserWithEmailAndPassword(data?.email, data?.password).then((userCredential) => {
+      setOpenAlert(true)
+      signOut()
+    }).catch((error) => {
+      setError('errorAfterSubmit', {
+        type: "manual",
+        message: t(`signup:validate.${error?.code}`)
+      });
+    });
   }
 
   return (
@@ -86,7 +83,7 @@ const SignIn = (props) => {
           {/* <LockOutlinedIcon /> */}
         </Avatar>
         <Typography component="h1" variant="h5">
-          {t('signin:title')}
+          {t('signup:title')}
         </Typography>
         <form className={classes.form} noValidate method="POST" onSubmit={handleSubmit(onSubmit)} >
           <Controller
@@ -161,7 +158,7 @@ const SignIn = (props) => {
             color="secondary"
             className={classes.submit}
           >
-            {t('signin:btn_sign_in')}
+            {t('signup:btn_sign_in')}
           </Button>
           <FormHelperText error style={{ textAlign: 'center' }}>{errors?.errorAfterSubmit?.message}</FormHelperText>
           <Grid container>
@@ -202,17 +199,25 @@ const SignIn = (props) => {
           <Grid container>
             <Grid item xs>
               <Link to="#" variant="body2" className={classes.link} onClick={() => setShowForgotPassword(true)}>
-                {t('signin:lbl_forgot_password')}
+                {t('signup:lbl_forgot_password')}
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/SignUp" variant="body2" className={classes.link}>
-                {t('signin:lbl_sign_in')}
+              <Link to="/SignIn" variant="body2" className={classes.link}>
+                {t('signup:lbl_sign_up')}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
+      <Snackbar open={openAlert} autoHideDuration={6000} onClose={() => setOpenAlert(false)}>
+        <Alert onClose={() => setOpenAlert(false)} severity="success">
+          {`${t('signup:lbl_sign_up_success')}, `}
+          <Link to="/SignIn" variant="body2" className={classes.link}>
+            {t('signup:lbl_login_now')}
+          </Link>
+        </Alert>
+      </Snackbar>
       <ForgotPassowd status={showForgotPassword} setStatus={setShowForgotPassword} />
     </Container >
   )
@@ -250,4 +255,4 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default SignIn
+export default SignUp

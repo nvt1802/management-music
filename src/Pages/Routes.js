@@ -1,7 +1,8 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import HomePage from 'Pages/HomePage'
 import SignInPage from 'Pages/SignInPage'
-import { Route } from 'react-router-dom'
+import SignUpPage from 'Pages/SignUpPage'
 import AuthRoute from 'Pages/AuthRoute'
 
 const routes = [
@@ -17,6 +18,11 @@ const routes = [
 		path: "/SignIn",
 		exact: true,
 		component: (props) => <SignInPage {...props} />
+	},
+	{
+		path: "/SignUp",
+		exact: true,
+		component: (props) => <SignUpPage {...props} />
 	},
 	{
 		path: '',

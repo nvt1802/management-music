@@ -7,8 +7,6 @@ import Develops from 'Components/Develops'
 import Language from 'Components/Language'
 import { Box, Link, Typography } from '@material-ui/core'
 
-document.title = 'Home'
-
 function App(props) {
   const {
     user
