@@ -3,8 +3,10 @@ import React from 'react'
 
 const headCells = [
   { id: 'uuid', numeric: false, disablePadding: true, label: 'UUID' },
-  { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
-  { id: 'age', numeric: true, disablePadding: false, label: 'Age' },
+  { id: 'trackNameVN', numeric: false, disablePadding: false, label: 'Track Name VN' },
+  { id: 'trackNameCN', numeric: true, disablePadding: false, label: 'Track Name CN' },
+  { id: 'SingerName', numeric: true, disablePadding: false, label: 'Singer' },
+  { id: 'UrlYoutube', numeric: true, disablePadding: false, label: 'URL youtube' },
 ];
 
 const TableMusicHeader = (

@@ -29,8 +29,10 @@ const TableMusicBody = ({
               />
             </TableCell>
             <TableCell align="left">{row}</TableCell>
-            <TableCell align="left">{dataTable[row]?.name}</TableCell>
-            <TableCell align="center">{dataTable[row]?.age}</TableCell>
+            <TableCell align="left">{dataTable[row]?.trackNameVN}</TableCell>
+            <TableCell align="center">{dataTable[row]?.trackNameCN}</TableCell>
+            <TableCell align="left">{dataTable[row]?.SingerName}</TableCell>
+            <TableCell align="center">{dataTable[row]?.UrlYoutube}</TableCell>
           </TableRow>
         )
       })}
