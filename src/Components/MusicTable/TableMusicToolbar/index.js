@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Fragment, useState } from 'react'
 import { IconButton, lighten, makeStyles, Toolbar, Tooltip, Typography } from '@material-ui/core'
 import clsx from 'clsx'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FilterListIcon from '@material-ui/icons/FilterList'
-import { deleteDeveloperData } from 'RealtimeDatabase/Develops'
+import { deleteMusics } from 'RealtimeDatabase/Musics'
+import PopupAddMusic from 'Components/MusicTable/PopupAddMusic'
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -28,44 +29,46 @@ const useToolbarStyles = makeStyles((theme) => ({
 const TableMusicToolbar = (props) => {
   const classes = useToolbarStyles()
   const { numSelected, selected, setSelected } = props
-
+  const [open, setOpen] = useState(false)
   const handleDelete = () => {
     Array.from(selected).forEach(developId => {
-      deleteDeveloperData(developId)
+      deleteMusics(developId)
     })
     setSelected([])
   }
 
   return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
-      {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Nutrition
-        </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete" onClick={handleDelete}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
+    <Fragment>
+      <Toolbar
+        className={clsx(classes.root, {
+          [classes.highlight]: numSelected > 0,
+        })}
+      >
+        {numSelected > 0 ? (
+          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+            {numSelected} selected
+          </Typography>
+        ) : (
+          <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+            MUSIC
+          </Typography>
+        )}
+        {numSelected > 0 ? (
+          <Tooltip title="Delete">
+            <IconButton aria-label="delete" onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Filter list">
+            <IconButton aria-label="filter list" onClick={() => setOpen(true)}>
+              <FilterListIcon />
+            </IconButton>
+          </Tooltip>
+        )}
+      </Toolbar>
+      <PopupAddMusic open={open} setOpen={setOpen} />
+    </Fragment>
   )
 }
 

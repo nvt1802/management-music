@@ -1,18 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { Avatar, Button, Grid, TextField } from '@material-ui/core'
+import { Avatar, Button, Grid } from '@material-ui/core'
 import MusicTable from 'Components/MusicTable'
-import { developDBRef, writeDeveloperData } from 'RealtimeDatabase/Develops'
+import { developDBRef } from 'RealtimeDatabase/Musics'
 
-const Develops = (props) => {
+const MusicManagement = (props) => {
   const {
     user,
     signOut
   } = props
 
-  const [listDev, setListDev] = useState([])
+  const [listMusic, setListDev] = useState([])
 
   useEffect(() => {
-    if (listDev.length === 0) {
+    if (listMusic.length === 0) {
       developDBRef.get().then(function (snapshot) {
         if (snapshot.exists()) {
           setListDev(snapshot.val() || [])
@@ -21,11 +21,11 @@ const Develops = (props) => {
         console.error(error);
       });
     }
-  }, [listDev])
+  }, [listMusic])
 
   const getUserData = () => {
     developDBRef.on("value", (snapshot) => {
-      if (listDev?.length !== snapshot.val()?.length) {
+      if (listMusic?.length !== snapshot.val()?.length) {
         setListDev(snapshot.val() || [])
       }
     });
@@ -34,10 +34,6 @@ const Develops = (props) => {
   useEffect(() => {
     getUserData()
   })
-
-  const handleCreate = () => {
-    writeDeveloperData('Nguyễn Văn Tài', 24)
-  }
 
   return (
     <Fragment>
@@ -55,22 +51,9 @@ const Develops = (props) => {
           </Button>
         </Grid>
       </Grid>
-      <MusicTable data={listDev} />
-      <div style={{ display: 'flex' }}>
-        <TextField
-          name="name"
-          variant="outlined"
-          size="small"
-        />
-        <TextField
-          name="age"
-          variant="outlined"
-          size="small"
-        />
-        <button onClick={handleCreate}>Create</button>
-      </div>
+      <MusicTable data={listMusic} />
     </Fragment>
   )
 }
 
-export default Develops
+export default MusicManagement

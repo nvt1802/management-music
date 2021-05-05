@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react'
-import Develops from 'Components/Develops'
+import MusicManagement from 'Components/MusicManagement'
 
 document.title = "Home"
 
 const HomePage = (props) => {
   return (
     <Fragment>
-      <Develops {...props} />
+      <div style={{ margin: 'auto', width: '90%' }}>
+        <MusicManagement {...props} />
+      </div>
     </Fragment>
   )
 }
