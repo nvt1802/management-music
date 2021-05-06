@@ -6,7 +6,7 @@ import 'firebase/auth'
 import routes, { RouteWithSubRoutes } from './Routes'
 import Language from 'Components/Language'
 import { Backdrop, CircularProgress, makeStyles } from '@material-ui/core'
-
+import { REVISION } from 'Common/DeployVersion'
 function App(props) {
   const classes = useStyles();
   const { user } = props
@@ -20,6 +20,9 @@ function App(props) {
             <RouteWithSubRoutes key={i} {...route} {...props} />
           ))}
         </Switch >
+        <div style={{ position: 'absolute', left: '0.5em', bottom: '0.5em' }}>
+          Revision: {REVISION}
+        </div>
       </Router >
     );
   } else {
