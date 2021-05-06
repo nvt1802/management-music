@@ -7,7 +7,7 @@ export function createMusics(trackNameVN, trackNameCN, SingerName, UrlYoutube) {
     trackNameVN: trackNameVN,
     trackNameCN: trackNameCN,
     SingerName: SingerName,
-    UrlYoutube: UrlYoutube,
+    UrlYoutube: UrlYoutube.replace('watch?v=','embed/'),
   });
 }
 

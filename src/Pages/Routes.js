@@ -2,6 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import HomePage from 'Pages/HomePage'
 import SignInPage from 'Pages/SignInPage'
+import MusicPage from 'Pages/MusicPage'
 import SignUpPage from 'Pages/SignUpPage'
 import AuthRoute from 'Pages/AuthRoute'
 
@@ -9,9 +10,13 @@ const routes = [
 	{
 		path: "/",
 		exact: true,
+		component: (props) => <HomePage {...props} />
+	},
+	{
+		path: "/Music",
+		exact: true,
 		component: (props) => (
-			<AuthRoute {...props} component={() => <HomePage {...props} />} />
-
+			<AuthRoute {...props} component={() => <MusicPage {...props} />} />
 		)
 	},
 	{
