@@ -1,9 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Avatar, Button, Grid } from '@material-ui/core'
-import MusicTable from 'Components/MusicTable'
 import { developDBRef } from 'RealtimeDatabase/Musics'
 
-const MusicManagement = (props) => {
+const Home = (props) => {
   const {
     user,
     signOut
@@ -29,6 +28,16 @@ const MusicManagement = (props) => {
     }
   })
 
+  const renderListMusic = () => {
+    return Object.keys(listMusic).map((row, index) => {
+      return (
+        <Grid item xs={4} key={index}>
+          <iframe width={'300px'} height={'200px'} src={listMusic[row]?.UrlYoutube} title="YouTube video player" frameBorder={0} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        </Grid>
+      )
+    })
+  }
+
   return (
     <Fragment>
       <Grid container justify="space-between" style={{ marginBottom: '1em' }}>
@@ -45,9 +54,11 @@ const MusicManagement = (props) => {
           </Button>
         </Grid>
       </Grid>
-      <MusicTable data={listMusic} />
+      <Grid container justify="space-between" style={{ marginBottom: '1em' }}>
+        {renderListMusic()}
+      </Grid>
     </Fragment>
   )
 }
 
-export default MusicManagement
+export default Home
